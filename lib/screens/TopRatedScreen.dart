@@ -62,65 +62,67 @@ class _TopRatedScreenState extends State<TopRatedScreen> {
               shrinkWrap: true,
               itemCount: movies.length,
               itemBuilder: (context, index) {
-                return Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              MovieDetailsScreen(movieId: movies[index].id),
+                return Dismissible(
+                  key: UniqueKey(),
+                  background: const Card(
+                    color: Colors.red,
+                    child: Center(
+                      child: Text(
+                        'Deleted',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
-                      );
-                    },
-                    child: Card(
-                      color: Color.fromARGB(255, 213, 152, 8),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  MovieDetailsScreen(movieId: movies[index].id),
+                      ),
+                    ),
+                  ),
+                  child: Card(
+                    color: Color.fromARGB(255, 213, 152, 8),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                MovieDetailsScreen(movieId: movies[index].id),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 110,
+                            height: 150,
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w200${movies[index].posterPath}',
+                              fit: BoxFit.cover,
                             ),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 110,
-                              height: 150,
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w200${movies[index].posterPath}',
-                                fit: BoxFit.cover,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    movies[index].title,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    movies[index].overview,
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
                               ),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      movies[index].title,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 20),
-                                    Text(
-                                      movies[index].overview,
-                                      maxLines: 4,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
